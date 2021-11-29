@@ -30,5 +30,9 @@ RUN mysql_install_db
     
 ENTRYPOINT bash /start_mysql.sh
 
+# Install debuginfo
+RUN sed -i 's/enabled=0/enable=1/g' /etc/yum.repos.d/CentOS-Linux-Debuginfo.repo
+RUN yum -y debuginfo-install MySQL-server-5.6.25-1.linux_glibc2.5.x86_64
+
 # Set workdir
 WORKDIR /home/
