@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    image: ipking/mysql-gdb:5.6.25
+    container_name: mysql-gdb
+    init: true
+    user: root
+    ports:
+      - '3306:3306'
+    # volumes:
+      # - ./my.cnf:/etc/my.cnf
+      # - ./docker-entrypoint.sh:/work/docker-entrypoint.sh
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=C.UTF-8
+      # - MYSQL_ROOT_PASSWORD=pass
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'
+          memory: 1024m
+    privileged: true
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
